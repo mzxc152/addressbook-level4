@@ -775,6 +775,12 @@ Use case resumes at step 2.
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Data stored in addressbook should not be corrupted in event of unexpected error leading to application crashing unexpectedly.
+.  System should be usable by users who are new to entering commands via Command Line Interface (CLI).
+.  Should work even after multiple entries of invalid commands.
+.  Source code should be open source to allow other developers to improve the application.
+.  Should be a free application for all.
+.  App should be updated regularly for bug fixes or implementing a new feature.
 
 {More to be added}
 
