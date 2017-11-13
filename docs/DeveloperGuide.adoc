@@ -499,7 +499,7 @@ The BirthdayChecker class checks if a contact's birthday falls on the current da
 The sequence diagram for the listbirthday command is shown below in figure 4.4a.
 
 image::ListBirthdayCommandSequenceDiagram.png[width="800"]
-_Figure 4.4a : listbirthday Command sequence diagram_
+_Figure 4.5a : listbirthday Command sequence diagram_
 
 ==== Design Considerations
 
@@ -538,7 +538,7 @@ When it is toggled, the `select` command will cause the `select` command to foll
 The following sequence diagram shows the execution of the ToggleCommand.
 
 image::ToggleCommandSequenceDiagram.png[width="800"]
-_Figure 4.4a : ToggleCommand sequence diagram_
+_Figure 4.6a : ToggleCommand sequence diagram_
 
 The `ToggleCommand` is able to refresh the `BrowserPanel` through the use of a new `ToggleChangedEvent`. This is an event that is handled by the `BrowserPanel`, and relies on 2 private variables within `BrowserPanel`.
 
@@ -578,7 +578,7 @@ If you entered arguments that do not follow the required format, `ParseException
 The following sequence diagram _(Figure 4.6a)_ illustrates the execution of the `sort` command in Contags.
 
 image::SortCommandSequenceDiagram.png[width="800"]
-_Figure 4.6a : SortCommand sequence diagram_
+_Figure 4.7a : SortCommand sequence diagram_
 
 `SortCommand` links the logic in Contags to the model that is displayed in the main window.
 
@@ -621,7 +621,7 @@ The `MailCommand` links the logic in Contags to the content (email address of th
 The following sequence diagram (figure 4.7a) illustrates the execution of the `mail` command.
 
 image::MailCommandSequenceDiagram.png[width="800"]
-_Figure 4.7a : Mail Command sequence diagram_
+_Figure 4.8a : Mail Command sequence diagram_
 
 ==== Design Considerations
 
@@ -665,7 +665,7 @@ The `SmsCommand` links the logic in Contags to the content (phone number of the 
 The following sequence diagram illustrates the execution of the `sms` command.
 
 image::SmsCommandSequenceDiagram.png[width="800"]
-_Figure 4.8a : SMS Command sequence diagram_
+_Figure 4.9a : SMS Command sequence diagram_
 
 ==== Design Considerations
 
@@ -706,6 +706,8 @@ If any of the fields are incorrect, the Reauthenticate Command will throw an err
 
 The `ReauthenticateCommand` links the logic in Contags to the content (three fields) of the Twilio user interface, ultimately allowing text messages to be sent through the application.
 
+image::ReauthenticateCommandSequenceDiagram.png[width="800"]
+Figure: 4.10.a Reauthenticate Command Sequence Diagram
 
 ==== Design Considerations
 
@@ -727,8 +729,9 @@ The `ReauthenticateCommand` links the logic in Contags to the content (three fie
 **Pros:** None. +
 **Cons:** User does not know if message is not sent because of incorrect account particulars, or because there is a server error.
 
-// end::reauthenticateCommand[]
 
+
+// end::reauthenticateCommand[]
 // tag::removeTagCommand[]
 === RemoveTag Command
 
@@ -742,6 +745,9 @@ The code immediately removes the tag from the application. It is an undoable com
 [NOTE]
 The `removeTag` command is case sensitive, and the tags identified are case sensitive as well.
 
+image::RemoveTagCommandSequenceDiagram.png[width="500"]
+Figure 4.11.a: RemoveTag Command Sequence Diagram
+
 ==== Design Considerations
 
 **Aspect:** Attributes to `removeTag` command +
@@ -752,9 +758,9 @@ The `removeTag` command is case sensitive, and the tags identified are case sens
 **Pros:** Allows users to remove the tag only from certain contacts, not all.  +
 **Cons:** Time consuming, as user would have to go through contacts one by one.  +
 
-// end::removeTagCommand[]
 
-=== Backup Storage Mechanism
+// end::removeTagCommand[]
+=== BackUp Storage Mechanism
 
 // tag::backup[]
 

@@ -46,6 +46,7 @@ include::../UserGuide.adoc[tag=removeTag]
 
 #End of Extract#
 
+
 ==== Justification
 
 1. If a tag is no longer applicable to the user, the user can simply remove this Tag from all contacts in the Contags application through this feature.
