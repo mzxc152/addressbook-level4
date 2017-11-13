@@ -568,7 +568,7 @@ When `BrowserPanel` handles a `PersonPanelSelectionChangedEvent`, it stores both
 // end::social[]
 
 //tag::sort[]
-=== Sort Mechanism
+=== Sort mechanism
 
 `SortCommand` sorts the `person` in Contags based on their `Name`, `Phone`, `Email`, `Address` or `Tag`. The implementation of `SortCommand` inherits from `Command`. Sorting currently works in ascending order only. +
 
@@ -576,6 +576,13 @@ There is also the use of the `SortCommandParser` class, which implements the `Pa
 
 [NOTE]
 If you entered arguments that do not follow the required format, `ParseException` will be thrown. +
+
+The following sequence diagram _(Figure 4.6a)_ illustrates the execution of the `sort` command in Contags.
+
+image::SortCommandSequenceDiagram.png[width="800"]
+_Figure 4.6a : SortCommand sequence diagram_
+
+`SortCommand` links the logic in Contags to the model that is displayed in the main window.
 
 ==== Design Considerations
 
@@ -797,6 +804,48 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+// tag::tagcolor[]
+
+=== Tag Colors
+
+The tag colors are implemented using a predefined string of chosen colors in an ArrayList, as shown in the code snippet below.
+
+[source,java]
+----
+private static ArrayList<String> colors = new
+            ArrayList<String>(Arrays.asList("salmon", "mediumspringgreen", "tan", "royalblue",
+            "maroon", "seagreen", "rosybrown", "pink", "black", "red", "beige"));
+----
+
+In the next code snippet, the method checks whether each `tagName` has a color assigned to it and if there is no color assigned, the 1st
+color in the ArrayList is given to that tag before being added back into the ArrayList and then removing it so as to push the next color to the front of the ArrayList.
+This cycles the range of colors that have been predefined for new tags that do not yet have a color assigned.
+
+[source,java]
+----
+ private static String getColorForTag(String tagName) {
+        if (!tagColors.containsKey(tagName) && !colors.isEmpty()) {
+            String color = colors.get(0);
+            tagColors.put(tagName, color);
+            colors.add(color);
+            colors.remove(0);
+        }
+        return tagColors.get(tagName);
+    }
+----
+
+==== Design Considerations
+
+**Aspect:** Colors that can be added to the tag +
+**Alternative 1 (current choice):** Predefined string of chosen colors for users. +
+**Pros:** Allows users to simply add their tag(s) and the color will be automatically chosen for each tag or tags . +
+**Cons:** Users would not be able to choose the color for each individual tag as it is automatically assigned by the application. +
+**Alternative 2:** Allow users to choose the color of the tag for each unique tag that they have added. +
+**Pros:** Useful for users who want to customise the colors of each tag to their own choice, for better organisation. +
+**Cons:** Complicates the adding contacts part of the application with more commands to input just to add a contact.
+
+// end::tagcolor[]
+
 == Documentation
 
 We use asciidoc for writing documentation.
@@ -953,7 +1002,7 @@ Priorities: +
 
 |`* *` |user |view a list of contacts whose birthdays fall on the current date |remember their birthdays and wish them
 
-|`* *` |user |have tags of different colours |easily identify different tags
+|`* *` |user |have tags of different colors |easily identify different tags
 
 |`*` |user |find a person with an incomplete name |to find a person even if I cannot remember or spell the person's name correctly
 
@@ -1125,6 +1174,10 @@ Use case ends.
 *Extensions*
 
 [none]
+* 1a. The given keyword is invalid.
++
+** 1a1. Contags informs user that keyword entered is not valid.
++
 * 2a. The list is empty.
 +
 Use case ends.

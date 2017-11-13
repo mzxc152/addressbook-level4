@@ -98,11 +98,15 @@ _Figure 5.0.1 : Command Format Summary_
 
 The features in this subsection do not require any commands to execute and are already working automatically in Contags. They are documented here for your reference.
 
-==== Coloured tags
+// tag::tagcolor[]
 
-Each unique tag currently has a colour that is set to that tag name, for you to easily identify different groups of tags that you have added. +
+==== Tag colors
 
-You cannot individually set the colour you want for each tag, but we are working to include this feature in a future update to Contags.
+Each unique tag currently has a color that is set to that tag name, for you to easily identify different groups of tags that you have added. +
+
+You cannot individually set the color you want for each tag, but we are working to include this feature in a future update to Contags.
+
+// end::tagcolor[]
 
 ==== Saving the data
 
@@ -472,11 +476,15 @@ image::sort_ui.png[width="200"]
 _Figure 5.18.1 : Sort UI Dropdown Box_
 
 ****
-* Sorts the list of contacts saved in Contags and then displays the sorted list. +
-* Sorting is done in alphanumerical ascending order. +
-* Keywords for sorting: `name`, `phone`, `email`, `address`, `tag`. +
 * Keywords are *case-insensitive*. e.g. `sort name` and `sort NAME` both sorts the list . +
 ****
+
+How to use: +
+1. Type `sort KEYWORD` where `KEYWORD` is either `name`, `phone`, `email`, `address` or `tag`. +
+
+Outcome: +
+1. The list of contacts is sorted according to the keyword. +
+2. `List has been sorted.` is shown on the window to show that sorting has been done successfully.
 
 Examples:
 
@@ -665,7 +673,11 @@ contacts.
 
 * listbirthday will display all contacts with birthdays that fall within the week.
 
+// tag::change[]
+
 * Tag colors can be changed according to your preference by typing in the command `change` followed by the tag's name and the preferred color. +
 ** e.g. `change` `friends` `yellow` +
 The color of the `friends` tag changes to `yellow`. +
 ** For a complete list of color names that you can use, you can refer to this color guide link:{https://www.quackit.com/css/css_color_codes.cfm[here].
+
+// end::change[]
