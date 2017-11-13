@@ -1,4 +1,11 @@
 # hymss
+###### /java/seedu/address/logic/commands/Command.java
+``` java
+    public static String getMessageForBirthdayListShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
+    }
+
+```
 ###### /java/seedu/address/logic/commands/EditCommand.java
 ``` java
         public void setBirthday(Birthday birthday) {
@@ -171,6 +178,7 @@ public class MailCommandParser implements Parser<MailCommand> {
         return birthday.isPresent() ? Optional.of(new Birthday(birthday.get())) : Optional.empty();
     }
 
+<<<<<<< HEAD
 ```
 ###### /java/seedu/address/model/ModelManager.java
 ``` java
@@ -179,6 +187,46 @@ public class MailCommandParser implements Parser<MailCommand> {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+=======
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseTags(Collection<String> tags) throws IllegalValueException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        return tagSet;
+    }
+
+    /**
+     * Parses a {@code Optional<String> remark} into an {@code Optional<Remark>} if {@code remark} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Remark> parseRemark(Optional<String> remark) throws IllegalValueException {
+        requireNonNull(remark);
+        return remark.isPresent() ? Optional.of(new Remark(remark.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code Optional<String> url} into an {@code Optional<String>} if {@code url} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<String> parseSocial(Optional<String> url) throws IllegalValueException {
+        requireNonNull(url);
+        return url.isPresent() ? Optional.of(url.get()) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
+     */
+    public static String parseAuthenticator(String authenticator) throws IllegalValueException {
+        requireNonNull(authenticator);
+        return authenticator.trim();
+    }
+
+>>>>>>> v1.5
 
 ```
 ###### /java/seedu/address/model/person/AnyParticularContainsKeywordsPredicate.java
@@ -340,6 +388,36 @@ public class BirthdayChecker implements Predicate<ReadOnlyPerson> {
         return this.tagName;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Returns true if a given string is a valid tag name.
+     */
+    public static boolean isValidTagName(String test) {
+        return test.matches(TAG_VALIDATION_REGEX);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Tag // instanceof handles nulls
+                && this.tagName.equals(((Tag) other).tagName)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return tagName.hashCode();
+    }
+
+    /**
+     * Format state as text for viewing.
+     */
+    public String toString() {
+        return '[' + tagName + ']';
+    }
+
+}
+>>>>>>> v1.5
 ```
 ###### /java/seedu/address/storage/AddressBookStorage.java
 ``` java
