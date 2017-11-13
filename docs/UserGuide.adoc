@@ -270,23 +270,23 @@ _Figure 5.11.1 : Listbirthday Command Success_ +
 
 // tag::mailContact[]
 
-Isn't it a hassle to find the email address of the contact you want to email? Especially if you don't remember the contact's name or email address? With Contags, you no longer need to spend time trying to find your intended email address in your mail browser or application. All you have to do is use of of Contags' many find and sort options to find your desired contact. Then, simply use the mail command and you're good to go!
+Isn't it a hassle to find the email address of the contact you want to email? Especially if you don't remember the contact's name or email address? With Contags, you no longer need to spend time trying to find your intended email address in your mail browser or application. All you have to do is make use of Contags' many find and sort options to find your desired contact. Then, simply use the mail command and you're good to go!
 
 [NOTE]
 ====
-You can choose which desktop mail application or mail browser you want the mail command to redirect to. Simply modify your computer/ laptop settings such that the default mail application/ browser to set it to your desired mail application or browser!
+You can choose which desktop mail application or mail browser you want the mail command to redirect to. Simply modify your computer/ laptop settings such that the default mail application/ browser is set to your desired mail application or browser!
 ====
 
 1. On the CLI, type in the mail command (`mail` or `m` followed by the index of the contact you want to mail). The format and examples are shown below.
 2. You will be redirected to your chosen mail application or browser and the 'to' field of the message will be automatically filled in with the email address of the contact at the specified index.
-3. Fill in the subject and message field and hit send! Your mail will be successfully sent. Figure 5.12.1 below shows how your screen should look like after execution of the mail command if you set your default mail application to be the desktop mail on Mac OS.
+3. Fill in the subject and message field and hit send! Your mail will be successfully sent. Figure 5.12.1 below shows how your screen should look like after execution of the mail command if you set your default mail application to be the desktop mail.
 
 Format: `mail INDEX` +
 Alias: `m INDEX` +
 
-Examples:
-* `mail 1` +
-* `m 4`
+Examples: +
+`mail 1` +
+`m 4`
 
 image::MailCommandResult.png[width="500"]
 _Figure 5.12.1 : Mail Command Success_ +
@@ -570,6 +570,22 @@ The `clear` command has been undone. +
 `undo` +
 The `delete 1` command has been undone. +
 
+=== Creating a meeting event : `meeting` `coming in v2.0`
+
+// tag::meeting[]
+
+Have many meetings and simply cannot keep track of them? Don't fret, Contags will help you keep track of all your meetings and ensure that you never miss one.
+
+1. On the CLI, type `meeting`, followed by `d/`, the date of the meeting, followed by `t/`, the time of the meeting and lastly, `c/`, the indexes of the contacts that are involved in the meeting.
+2. The browser panel will refresh to reflect the addition of a new meeting.
+
+Format: `meeting d/DATE t/TIME c/INDEX` +
+
+Examples:
+`meeting d/23/12/2017 t/12:00 c/1`
+
+// end::meeting[]
+
 == FAQ
 This section contains some frequently asked questions and the relevant answers.
 These should answer some of the doubts or questions that you may have while using Contags. +
@@ -670,9 +686,7 @@ Here is a quick list of all the commands that Contags can execute:
 
 * A reminder list that will pop up on the screen every time you open Contags.
 
-* A meeting scheduler, where you can link to your calender application when you first install Contags. +
-Subsequently, when you type in the command `free` followed by the contact's name or index, you will get a list of common
-free timings with that contact.
+* A meeting scheduler, where you can create meeting events. You can specify the date and time as well as contacts involved in the meeting.
 
 * Contacts can be starred in Contags based on your preference to give priority in the list of
 contacts.

@@ -49,7 +49,7 @@ include::../DeveloperGuide.adoc[tag=mailContact]
 
 ==== Justification
 
-Business professionals would find it useful to keep track of their contacts' birthdays so that they can maintain business relationships on top of friendships and family relationships. In today's world where connections are so necessary and powerful, maintaining business relationships have never been more important. Integrating a birthday field as part of a contact's particulars would help users to have a record of their contacts' birthdays and would make it more convenient for users to wish the colleagues and friends.
+Business professionals would find it useful to keep track of their contacts' birthdays so that they can maintain business relationships on top of friendships and family relationships. In today's world where connections are so necessary and powerful, maintaining business relationships have never been more important. Integrating a birthday field as part of a contact's particulars would help users to have a record of their contacts' birthdays and would make it more convenient for users to wish the colleagues and friends, thereby helping users to maintain and improve their personal and business relationships.
 
 ---
 
@@ -57,7 +57,7 @@ Business professionals would find it useful to keep track of their contacts' bir
 
 include::../DeveloperGuide.adoc[tag=birthdayfield]
 
-See pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/37[#37].
+See pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/37[#37] for full implementation.
 
 ---
 
@@ -91,13 +91,13 @@ include::../DeveloperGuide.adoc[tag=listbirthday]
 
 ---
 
-=== Enhancement Added: BackUpAddressBook
+=== Enhancement Added: Backup Storage Mechanism
 
 ---
 
 ==== Justification
 
-Saving a backup of the data in Contags would help in reverting any changes made to the data that results in data loss or corruption.
+Saving a backup of the data in Contags would help in reverting any changes made to the data that resulted in any data loss or corruption.
 
 ---
 
@@ -105,7 +105,7 @@ Saving a backup of the data in Contags would help in reverting any changes made 
 
 include::../DeveloperGuide.adoc[tag=backup]
 
-See pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/23[#23].
+See pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/23[#23] for full implementation.
 
 ---
 
@@ -117,31 +117,33 @@ See pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/23[#23].
 
 We wanted users to be able to execute their desired commands with as little effort as possible. Therefore, we have added an alternative alias for commands to minimise the amount of typing they have to do.
 
-See pull requests https://github.com/CS2103AUG2017-T16-B4/main/pull/22[#22], https://github.com/CS2103AUG2017-T16-B4/main/pull/124[#124].
+See pull requests https://github.com/CS2103AUG2017-T16-B4/main/pull/22[#22], https://github.com/CS2103AUG2017-T16-B4/main/pull/124[#124] for full implementation.
 
 ---
 
-=== Enhancement Proposed:
+=== Enhancement Proposed: Meeting Command (v2.0)
+
+---
+
+==== External Behaviour
+
+Function: Creating a meeting event
+
+include::../UserGuide.adoc[tag=meeting]
 
 ---
 
 ==== Justification
 
----
-
-=== Developer Guide Appendix: Glossary
+Business professionals spend more time in meetings than doing work. A meeting command would be paramount in maximising the productivity of business professionals as they can easily keep track of their meetings schedules and which contacts are involved in the meeting.
 
 ---
 
-include::../DeveloperGuide.adoc[tag=glossary]
+==== Implementation
 
----
+===== Use case
 
-=== Developer Guide Appendix: Product Survey
-
----
-
-include::../DeveloperGuide.adoc[tag=productSurvey]
+include::../DeveloperGuide.adoc[tag=schedule]
 
 ---
 
@@ -152,3 +154,8 @@ include::../DeveloperGuide.adoc[tag=productSurvey]
 * Updated UI to add new logo and include a separate browser panel displaying the address of a contact when contact is selected (Pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/107[#107])
 * Enhanced find command to find by tags (Pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/111[#111])
 * Wrote manual testing scripts (TestScript.adoc and SampleData.xml) (Pull requests https://github.com/CS2103AUG2017-T16-B4/main/pull/137[#137], https://github.com/CS2103AUG2017-T16-B4/main/pull/123[#123])
+* Wrote glossary and product survey in developer guide (Pull requests https://github.com/CS2103AUG2017-T16-B4/main/pull/3[#3], https://github.com/CS2103AUG2017-T16-B4/main/pull/61[#61])
+
+===== Offered feature for reuse
+
+Offered listbirthday command feature for reuse and it was reused by https://github.com/wynkheng[Wyn K Heng]. See the corresponding issue https://github.com/nus-cs2103-AY1718S1/forum/issues/223[here].

@@ -87,6 +87,7 @@ public class BrowserPanel extends UiPart<Region> {
         setField("Address");
     }
 
+    //@@author seankwekjk
     /**
      * Loads the address of the contact selected and corresponding google maps page through last saved address.
      * Meant to be called by ToggleCommand.
@@ -98,7 +99,6 @@ public class BrowserPanel extends UiPart<Region> {
         field.setText("Address");
     }
 
-    //@@author
     /**
     * Set Label on BrowserPanel to address
      */

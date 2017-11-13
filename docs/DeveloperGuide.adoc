@@ -450,9 +450,9 @@ public class ListCommand extends Command {
 
 **Aspect:** Implementation of birthday field +
 **Alternative 1 (current choice):** Add a new birthday field to all files containing the other fields (name, phone, address, email). +
-**Pros:** We will not lose any other functionality as it is now just an additional part of the default behaviour. Existing classes and commands do not have to know that the birthday field exists, barring Add and Edit command. It is also easy for new developers to understand. +
+**Pros:** There would be no loss of existing functionality as it is now just an additional part of the default behaviour. Existing classes and commands do not have to know that the birthday field exists, barring add and edit command. It is also easy for new developers to understand. +
 **Cons:** Design is not modular and has high dependency. +
-**Alternative 2:** Create a new class completely for optional fields such as birthday field +
+**Alternative 2:** Create a new class completely for birthday field. +
 **Pros:** Does not involve the existing template pattern, easier for new developers to understand. +
 **Cons:** Methods of the birthday field that are inherited from the other fields must remember to call the super methods, or lose the ability to perform like the other fields.
 
@@ -463,7 +463,7 @@ public class ListCommand extends Command {
 **Pros:** Easy to implement and easy for new developers to understand the implementation and work on it. +
 **Cons:** Not very user-friendly as not all users would want to add birthdays for all their contacts. +
 **Alternative 2:** Make the birthday field optional. +
-**Pros:** More user-friendly. +
+**Pros:** More user-friendly as users have the flexibility of choice to decide which contacts they want to add the birthday for. +
 **Cons: ** Implementation is slightly more tedious and new developers might need more time to understand the implementation.
 
 // end::birthdayfield[]
@@ -492,29 +492,27 @@ The command will only match entirely complete fields. Eg. user input `find cl` w
 
 // tag::listBirthday[]
 
-The listbirthday command displays the list of contacts in Contags whose birthdays fall on the current date. The list is sorted in order of the list according to the `updateFilteredPersonsList`.
-
-The listbirthday command is facilitated by the `BirthdayChecker` class in the person class. Take note that the listbirthday command is not an undoable command and hence inherits from `Command` rather than `UndoableCommand` (see design considerations below).
+The listbirthday command displays the list of contacts in Contags whose birthdays fall on the current date. The list is sorted in order of the list according to the `updateFilteredPersonsList`. The lisbirthday command is facilitated by the `BirthdayChecker` class in the person class. Take note that the listbirthday command is not an undoable command and hence inherits from `Command` rather than `UndoableCommand`.
 
 The BirthdayChecker class checks if a contact's birthday falls on the current date by checking if the month and day of the contact's birthday and current date are equal. This is done so by converting the month and day first to a string, which is then converted to a date object and finally a calendar object.
 
-The sequence diagram for the listbirthday command is shown below.
+The sequence diagram for the listbirthday command is shown below in figure 4.4a.
 
 image::ListBirthdayCommandSequenceDiagram.png[width="800"]
 _Figure 4.5a : listbirthday Command sequence diagram_
 
 ==== Design Considerations
 
-**Aspect:** Whether the listbirthday should be an executable command that requires manual typing of the command each time. +
+**Aspect:** Whether the listbirthday should be an executable command that requires manual typing of the command each time +
 **Alternative 1 (current choice):** listbirthday is a command and users would have to type that every time they want to find out if a contact's birthday falls on that day. +
 **Pros:** Easy to implement and easy for new developers to understand and work on it. +
 **Cons:** Not as user friendly as users would have to manually key in the command every time. +
-**Alternative 2:** List of contacts whose birthdays falls on the current day appear as a popup every time the app is started. +
+**Alternative 2:** Display list of all contacts whose birthdays falls on the current day as a popup every time the app is started. +
 **Pros:** More user friendly as users would not have to type the command every day. Users might forget to type the command everyday to check if any of their contact's birthday is on the current date. +
 **Cons:** Implementation is more tedious. +
 **Alternative 3:** List the contacts whose birthdays fall within a week from the current date. +
 **Pros:** More user friendly as users might want to know whose birthday is nearing. +
-**Cons:** More tedious to implement.
+**Cons:** Implementation is more tedious.
 
 // end::listBirthday[]
 // tag::social[]
@@ -620,7 +618,7 @@ If the index entered by the user does not comply with the expected range, ParseE
 
 The `MailCommand` links the logic in Contags to the content (email address of the specified index) that in displayed on the desktop mail application. +
 
-The following sequence diagram illustrates the execution of the `mail` command.
+The following sequence diagram (figure 4.7a) illustrates the execution of the `mail` command.
 
 image::MailCommandSequenceDiagram.png[width="800"]
 _Figure 4.8a : Mail Command sequence diagram_
@@ -628,10 +626,10 @@ _Figure 4.8a : Mail Command sequence diagram_
 ==== Design Considerations
 
 **Aspect:** Attributes to mail command +
-**Alternative 1 (current choice):** Only takes in to (email address) field. +
+**Alternative 1 (current choice):** Only takes in 'to' (email address) field. +
 **Pros:** Allows users to type in their title and message on the mail application itself. It would be more user friendly if the message is long or requires formatting such as separating the message into paragraphs. +
 **Cons:** Users would still have to type the subject and message when the mail application opens. +
-**Alternative 2:** Take in to, title and message fields. +
+**Alternative 2:** Take in 'to', 'title' and 'message' fields. +
 **Pros:** Useful for most users who want to send a short message quickly without having to type in the mail application when it opens. +
 **Cons:** Not useful for users who want to send long messages with paragraphs.
 
@@ -640,10 +638,10 @@ _Figure 4.8a : Mail Command sequence diagram_
 **Aspect:** Whether mail command should automatically send the mail without opening up the mail application +
 **Alternative 1 (current choice):** Mail command opens up the default desktop mail application. +
 **Pros:** User can decide on the preferred mail server and there would not be security issues with the log in since it is done externally. +
-**Cons:** Less user friendly as there is a need to open an extra application and it would be more of a hassle for users. Furthermore, it is not in tandem with one of our intended purposes of Contags, which is to integrate the different communication platforms onto one application itself. +
-**Alternative 2:** Implement GMail API. +
+**Cons:** Less user friendly as there is a need to open an extra application and it would be more of a hassle for users. Furthermore, it is not in tandem with one of our intended purposes of Contags, which is to integrate the different communication platforms onto one application itself to minimise the number of applications the user has to open. +
+**Alternative 2:** Implement a specific mail browser such as Gmail, using Gmail API. +
 **Pros:** There is no need to open up the desktop mail application and users can easily send a mail using just the CLI. +
-**Cons:** Not all users would want have the same consensus on the preferred mail server. Implementing the GMail API would not cater to the needs and preferences of many users who would want to use other mail servers. Furthermore, the interface for GMail is not optimal in `JavaFX WebView`.
+**Cons:** Not all users would have the same preferred mail server. Implementing the GMail API would not cater to the needs and preferences of many users who would want to use other mail servers. Furthermore, the interface for GMail is not optimal in `JavaFX WebView`.
 
 // end::mailcommand[]
 // tag::smsCommand[]
@@ -761,15 +759,14 @@ Figure 4.11.a: RemoveTag Command Sequence Diagram
 **Cons:** Time consuming, as user would have to go through contacts one by one.  +
 
 
-
 // end::removeTagCommand[]
 === BackUp Storage Mechanism
 
 // tag::backup[]
 
-The backUp storage mechanism is implemented through the `backUpAddressBook` method which resides in the `StorageManager` class. The backUp mechanism stores the data in Contags in the same directory as the main `AddressBook` storage file. The `BackUpAddressBook` storage file will be saved with `-backup.xml` appended at the back of the `AddressBook` storage file.
+The backup storage mechanism is implemented through the `backUpAddressBook` method which resides in the `StorageManager` class. The backup mechanism stores the data in Contags in the same directory as the main `AddressBook` storage file. The `BackUpAddressBook` storage file will be saved with `-backup.xml` appended at the back of the `AddressBook` storage file.
 
-Upon launch of Contags, the `init` method in `MainApp` would be executed, which initialises `StorageManager` which then calls the method `backUpAddressBook`. The `backUpAddressBook` calls the method `saveAddressBook` which resides in the `StoreManager` class and saves the `backUpAddressBook` file in a fixed temporary location as mentioned above. The code snippet is shown below.
+Upon launch of Contags, the `init` method in `MainApp` will be executed, which initialises `StorageManager`. `StorageManager` then calls the method `backUpAddressBook`. The `backUpAddressBook` calls the method `saveAddressBook` which resides in the `StoreManager` class and saves the `backUpAddressBook` file in a fixed temporary location as mentioned above. The code snippet is shown below.
 
 [source,java]
 ----
@@ -782,7 +779,7 @@ Upon launch of Contags, the `init` method in `MainApp` would be executed, which 
 
 ==== Design Considerations
 
-**Aspect:** When backUpAddressBook should be automatically executed +
+**Aspect:** When `backUpAddressBook` should be automatically executed +
 **Alternative 1 (current choice):** Upon launch of Contags +
 **Pros:** Convenient for users as they can easily revert any accidental changes they have made while using Contags. It also accounts for any possibility of data corruption while Contags is running. +
 **Cons:** Does not save any changes made during the session if data corruption occurs while Contags is running. +
@@ -1313,8 +1310,8 @@ Contags informs user that the contact cannot be found. Use case ends.
 
 *MSS*
 
-1. User requests to mail a contact by typing in mail command, followed by the mail, title and message.
-2. Contags opens up desktop mail application and user clicks send.
+1. User requests to mail a contact by typing in the mail command with input index of the contact to mail.
+2. Contags opens up desktop mail application. User fills in the subject and message fields and clicks send.
 3. Use case ends.
 
 *Extensions*
@@ -1334,7 +1331,7 @@ Contags informs user that the contact cannot be found. Use case ends.
 *MSS*
 
 1. User requests to see the list of contacts whose birthdays fall on the current date.
-2. Contags shows the list of filtered contacts.
+2. Contags shows the list of filtered contacts in order of the most updated list.
 +
 Use case ends.
 
