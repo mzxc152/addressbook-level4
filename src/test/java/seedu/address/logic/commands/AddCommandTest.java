@@ -141,11 +141,13 @@ public class AddCommandTest {
             return null;
         }
 
+        //@@author hymss
         @Override
         public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
             fail("This method should not be called.");
         }
 
+        //@@author
         @Override
         public void reauthenticate (String newId, String newToken, String newNumber) {
             fail("This method should not be called.");

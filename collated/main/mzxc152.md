@@ -1,5 +1,5 @@
 # mzxc152
-###### \java\seedu\address\logic\commands\SortCommand.java
+###### /java/seedu/address/logic/commands/SortCommand.java
 ``` java
 
 /**
@@ -13,7 +13,7 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts the list by name, phone, email, address or tag.\n"
-            + "Parameters: KEYWORD\n"
+            + "Parameters: name/phone/email/address/tag\n"
             + "Example for email sort: " + COMMAND_WORD + " email";
 
     public final String toSort;
@@ -29,12 +29,12 @@ public class SortCommand extends Command {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\AddressBookParser.java
+###### /java/seedu/address/logic/parser/AddressBookParser.java
 ``` java
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 ```
-###### \java\seedu\address\logic\parser\SortCommandParser.java
+###### /java/seedu/address/logic/parser/SortCommandParser.java
 ``` java
 
 /**
@@ -57,7 +57,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     }
 }
 ```
-###### \java\seedu\address\model\AddressBook.java
+###### /java/seedu/address/model/AddressBook.java
 ``` java
     /**
      * Sorts the list in alphabetical order.
@@ -66,12 +66,12 @@ public class SortCommandParser implements Parser<SortCommand> {
         persons.sort(toSort);
     }
 ```
-###### \java\seedu\address\model\Model.java
+###### /java/seedu/address/model/Model.java
 ``` java
     /** Sorts Contags in alphabetical order. */
     void sortList(String toSort);
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### /java/seedu/address/model/ModelManager.java
 ``` java
     /**
      * Sorts the list in alphabetical order.
@@ -83,7 +83,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         indicateAddressBookChanged();
     }
 ```
-###### \java\seedu\address\model\person\UniquePersonList.java
+###### /java/seedu/address/model/person/UniquePersonList.java
 ``` java
     /**
      * Sorts the list in alphabetical order.
@@ -110,7 +110,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         }
     }
 ```
-###### \java\seedu\address\ui\MainWindow.java
+###### /java/seedu/address/ui/MainWindow.java
 ``` java
     @FXML
     private TextField findField;
@@ -119,12 +119,12 @@ public class SortCommandParser implements Parser<SortCommand> {
     private ComboBox comboBox;
 
 ```
-###### \java\seedu\address\ui\MainWindow.java
+###### /java/seedu/address/ui/MainWindow.java
 ``` java
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic)
             throws CommandException, ParseException {
 ```
-###### \java\seedu\address\ui\MainWindow.java
+###### /java/seedu/address/ui/MainWindow.java
 ``` java
     /**
      * Initializes the find field.
@@ -164,7 +164,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         });
     }
 ```
-###### \java\seedu\address\ui\PersonCard.java
+###### /java/seedu/address/ui/PersonCard.java
 ``` java
     private static ArrayList<String> colors = new
             ArrayList<String>(Arrays.asList("salmon", "mediumspringgreen", "tan", "royalblue",
@@ -271,25 +271,25 @@ public class SortCommandParser implements Parser<SortCommand> {
     }
 }
 ```
-###### \resources\view\DarkTheme.css
+###### /resources/view/DarkTheme.css
 ``` css
 #comboBox .list-cell {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 #comboBox .list-view .list-cell {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 #comboBox .cell {
-    -fx-background-color: derive(#383838, 45%);
+    -fx-background-color: derive(#666666, 45%);
 }
 ```
-###### \resources\view\MainWindow.fxml
+###### /resources/view/MainWindow.fxml
 ``` fxml
   <StackPane prefHeight="42.0" prefWidth="690.0" styleClass="pane-with-border">
     <children>
-      <Label style="-fx-font-size: 14; -fx-text-fill: white;" text="Sort By:" StackPane.alignment="CENTER_RIGHT">
+      <Label style="-fx-font-size: 14; -fx-text-fill: #383838;" text="Sort By:" StackPane.alignment="CENTER_RIGHT">
         <StackPane.margin>
           <Insets right="140.0" />
         </StackPane.margin>

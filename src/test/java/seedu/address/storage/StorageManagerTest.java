@@ -72,6 +72,7 @@ public class StorageManagerTest {
         assertEquals(backup, new AddressBook(retrivedBackup));
     }
 
+    //@@author
     @Test
     public void getAddressBookFilePath() {
         assertNotNull(storageManager.getAddressBookFilePath());

@@ -1,5 +1,5 @@
 # seankwekjk
-###### \java\seedu\address\logic\parser\RemarkCommandParserTest.java
+###### /java/seedu/address/logic/parser/RemarkCommandParserTest.java
 ``` java
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.
@@ -24,7 +24,27 @@ public class RemarkCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\ui\BrowserPanelTest.java
+###### /java/seedu/address/model/person/RemarkTest.java
+``` java
+public class RemarkTest {
+
+    @Test
+    public void construct() {
+        Remark test = new Remark("hello ");
+        String empty = null;
+        assertEquals("hello", test.getRemarkText());
+        test = new Remark(empty);
+        assertEquals("", test.getRemarkText());
+    }
+
+    @Test
+    public void toStringTest() {
+        Remark test = new Remark("hello");
+        assertEquals("[hello]", test.toString());
+    }
+}
+```
+###### /java/seedu/address/ui/BrowserPanelTest.java
 ``` java
         // associated address of a person
         postNow(selectionChangedEventStub);
@@ -32,6 +52,8 @@ public class RemarkCommandParserTest {
                 + CARL.getAddress().value.replaceAll(" ", "+").replaceAll(",", "%2C"));
 
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(CARL.getAddress().value, browserPanel.getValue());
+        assertEquals("Address", browserPanel.getField());
 
         // associated social media page of a person
         selectionChangedEventStub = new PersonPanelSelectionChangedEvent(new PersonCard(ALICE, 1));
@@ -40,11 +62,35 @@ public class RemarkCommandParserTest {
         URL expectedSocialUrl = new URL(SOCIAL_MEDIA_URL_PREFIX + ALICE.getSocialMedia() + "/");
 
         assertEquals(expectedSocialUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(ALICE.getSocialMedia(), browserPanel.getValue());
+        assertEquals("Social Media", browserPanel.getField());
+
+        // toggle refresh behaviour
+        BrowserPanel.setBrowserMode();
+        toggleEventStub = new ToggleChangedEvent();
+        postNow(toggleEventStub);
+        expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
+                + ALICE.getAddress().value.replaceAll(" ", "+").replaceAll(",", "%2C"));
+
+        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(ALICE.getAddress().value, browserPanel.getValue());
+        assertEquals("Address", browserPanel.getField());
+
+        BrowserPanel.setBrowserMode();
+        toggleEventStub = new ToggleChangedEvent();
+        postNow(toggleEventStub);
+        expectedSocialUrl = new URL(SOCIAL_MEDIA_URL_PREFIX + ALICE.getSocialMedia() + "/");
+
+        assertEquals(expectedSocialUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(ALICE.getSocialMedia(), browserPanel.getValue());
+        assertEquals("Social Media", browserPanel.getField());
+
+        //revert BrowserMode to original state
         BrowserPanel.setBrowserMode();
     }
 }
 ```
-###### \java\systemtests\RemarkCommandSystemTest.java
+###### /java/systemtests/RemarkCommandSystemTest.java
 ``` java
 public class RemarkCommandSystemTest extends AddressBookSystemTest {
 
@@ -98,7 +144,7 @@ public class RemarkCommandSystemTest extends AddressBookSystemTest {
     }
 }
 ```
-###### \java\systemtests\ToggleCommandSystemTest.java
+###### /java/systemtests/ToggleCommandSystemTest.java
 ``` java
 public class ToggleCommandSystemTest extends AddressBookSystemTest {
 
