@@ -292,6 +292,32 @@ image::MailCommandResult.png[width="500"]
 _Figure 5.12.1 : Mail Command Success_ +
 
 // end::mailContact[]
+// tag::reauthenticateCommand[]
+=== Reauthenticates the Twilio account details of the Application `reauthenticate`
+Want to use your own Twilio account so you can begin sending text messages to your contacts through our application?
+
+After signing up for a Twilio account, you will be given three fields: AccountSid, Authentication Token, and Sending Number.
+Use these three fields to authenticate your new account with the application.
+
+Format: `reauthenticate id/[AccountSid] auth/[AuthenticationToken] num/[SendingNumber]`
+
+****
+* Reauthenticates the account details by interacting with the Twilio platform.  +
+* Application will inform user the status of the reauthentication. +
+* If account details fail to log in to Twilio, application will inform user that "Account Details are Incorrect, Please Try Again" +
+* All fields are case sensitive, based on the fields given by Twilio.
+****
+
+Examples:
+
+Type in the following into the command box to reauthenticate the Twilio details back to the sample account.
+
+`reauthenticate id/ACed7baf2459e41d773a5f9c2232d4d975 auth/6a26cc5c91ff355ebf48fe019700920b num/+12082157763`
+
+image::ReauthenticationSuccess.png[width="500"]
+Figure 5.13.1: Reauthentication Success! Account Synchronized with Application.
+// end::reauthenticateCommand[]
+
 
 === Redoing the previously undone command : `redo` `r`
 
@@ -355,8 +381,10 @@ Examples:
 * `removeTag friends` +
 Searches through all contacts in the Contags and deletes all instances of the Tag `friends`.
 
-// end::removeTag[]
+image::removeTagSuccess.png[width="500]
+Figure 5.16.1: RemoveTag Success!
 
+// end::removeTag[]
 // tag::social[]
 === Selecting a contact : `select` `s`
 
@@ -403,6 +431,11 @@ Logging into Twilio using the Sample Account:
 2. Check the "I'm not a robot" box, and press login.
 ....
 
+image::twilioLogin.png[width="500"]
+
+Figure 5.18.1: Twilio Login Page
+
+
 ....
 Authenticating a Phone Number on Twilio so Contags can send messages to your phone:
 
@@ -412,7 +445,7 @@ Authenticating a Phone Number on Twilio so Contags can send messages to your pho
 
 3. Now, click on the `Verified Caller IDs` label on the left.
 
-4. Under the Verified Caller IDs Title, click on the `Add new Number` Icon, denoted by the Red Addition Sign.
+4. Under the Verified Caller IDs Title, click on the `Add new Number` Icon, denoted by the Red Addition Sign. [See Figure 5.17.2]
 
 5. Click on the "text you instead" button that is underlined. Type in your phone number. Ensure that the country code is correct (+65).
 
@@ -423,12 +456,14 @@ Authenticating a Phone Number on Twilio so Contags can send messages to your pho
 8. Your phone number is now authenticated on this account.
 ....
 
+image::TwilioNumberAuthentication.png[width="500"]
+
+Figure 5.18.2: Twilio Number Verification Page
 
 Format: `sms INDEX text/MESSAGE`
 
 • Message is sent directly to the Singapore extension of the phone number indicated
 • Twilio Account must be set up properly, with correct authentication token. Currently synced to developer's account.
-
 
 Examples:
 
@@ -436,31 +471,10 @@ Examples:
 Sends an sms message to the number of the contact indicated by the index, with the message "hello there!".
 In this case, phone number of the contact in the first index MUST be authenticated by twilio.
 
+image::SmsMessageDelivered.png[width="500"]
+Figure 5.18.3: SMS text succesfully sent!
+
 // end::smsContact[]
-
-// tag::reauthenticateCommand[]
-=== Reauthenticates the Twilio account details of the Application `reauthenticate`
-Want to use your own Twilio account so you can begin sending text messages to your contacts through our application?
-
-After signing up for a Twilio account, you will be given three fields: AccountSid, Authentication Token, and Sending Number.
-Use these three fields to authenticate your new account with the application.
-
-Format: `reauthenticate id/[AccountSid] auth/[AuthenticationToken] num/[SendingNumber]`
-
-****
-* Reauthenticates the account details by interacting with the Twilio platform.  +
-* Application will inform user the status of the reauthentication. +
-* If account details fail to log in to Twilio, application will inform user that "Account Details are Incorrect, Please Try Again" +
-* All fields are case sensitive, based on the fields given by Twilio.
-****
-
-Examples:
-
-Type in the following into the command box to reauthenticate the Twilio details back to the sample account.
-
-`reauthenticate id/ACed7baf2459e41d773a5f9c2232d4d975 auth/6a26cc5c91ff355ebf48fe019700920b num/+12082157763`
-// end::reauthenticateCommand[]
-
 // tag::sort[]
 
 === Sorting the list of contacts: `sort`
@@ -473,7 +487,7 @@ Format: `sort KEYWORD`
 As an alternative, you can use the UI dropdown box _(Figure 5.18.1)_ located near the top-right hand corner of Contags to select how you want the list to be sorted.
 
 image::sort_ui.png[width="200"]
-_Figure 5.18.1 : Sort UI Dropdown Box_
+_Figure 5.19.1 : Sort UI Dropdown Box_
 
 ****
 * Keywords are *case-insensitive*. e.g. `sort name` and `sort NAME` both sorts the list . +
@@ -491,22 +505,22 @@ Examples:
 * `sort name` +
 
 image::sortname.png[width="200"]
-_Figure 5.18.2 : Sorting by name_ +
+_Figure 5.19.2 : Sorting by name_ +
 
 
 image::sortnameresult.png[width="700"]
-_Figure 5.18.3 : Result after sorting by name_ +
+_Figure 5.19.3 : Result after sorting by name_ +
 
 List is sorted according to name in ascending order _(Figure 5.18.3)_. +
 
 * `sort EMAIL` +
 
 image::sortemail.png[width="200"]
-_Figure 5.18.4 : Sorting by email address_ +
+_Figure 5.19.4 : Sorting by email address_ +
 
 
 image::sortemailresult.png[width="700"]
-_Figure 5.18.5 : Result after sorting by email address_ +
+_Figure 5.19.5 : Result after sorting by email address_ +
 
 List is sorted according to email addresses in ascending order _(Figure 5.18.5)_.
 // end::sort[]
@@ -631,6 +645,8 @@ Here is a quick list of all the commands that Contags can execute:
 
 |`mail INDEX` |sending an email to a contact through an external mail application |`mail 3`
 
+|`reauthenticate id/[ACCOUNT_SID] auth/[AUTHENTICATION_TOKEN] num/[SENDING_NUMBER]` | reauthenticates the twilio account synchronized with the Contacts application to the Twilio account of these three fields. | `reauthenticate id/CS2103 auth/CS2103PASSWORD num/91234567`
+
 |`redo` |redoing the last command (after undoing) |`redo`
 
 |`remark INDEX r/[REMARK]` |adding a remark to a contact |`remark 2 r/likes coffee`
@@ -640,8 +656,6 @@ Here is a quick list of all the commands that Contags can execute:
 |`select INDEX` |selecting a particular contact |`select 4`
 
 |`sms INDEX text/[TEXT]` |sending an SMS to a contact with the text field input after the text/ prefix. |`sms 3 text/hello!`
-
-|`reauthenticate id/[ACCOUNT_SID] auth/[AUTHENTICATION_TOKEN] num/[SENDING_NUMBER]` | reauthenticates the twilio account synchronized with the Contacts application to the Twilio account of these three fields. | `reauthenticate id/CS2103 auth/CS2103PASSWORD num/91234567`
 
 |`sort KEYWORD` |displaying a sorted list of contacts based on the keyword provided |`sort phone`
 
