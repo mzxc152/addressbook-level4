@@ -34,6 +34,7 @@ public class Tag {
         return this.tagName;
     }
 
+    //@@author
     /**
      * Returns true if a given string is a valid tag name.
      */

@@ -28,12 +28,10 @@ public abstract class Command {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
     }
 
-    //@@author hymss
     public static String getMessageForBirthdayListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
     }
 
-    //@@author
     /**
      * Executes the command and returns the result message.
      *
