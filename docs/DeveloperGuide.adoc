@@ -575,7 +575,7 @@ There is also the use of the `SortCommandParser` class, which implements the `Pa
 [NOTE]
 If you entered arguments that do not follow the required format, `ParseException` will be thrown. +
 
-The following sequence diagram _(Figure 4.6a)_ illustrates the execution of the `sort` command in Contags.
+The following sequence diagram _(Figure 4.7a)_ illustrates the execution of the `sort` command in Contags.
 
 image::SortCommandSequenceDiagram.png[width="800"]
 _Figure 4.7a : SortCommand sequence diagram_
