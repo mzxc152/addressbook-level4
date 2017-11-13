@@ -40,6 +40,7 @@ include::../UserGuide.adoc[tag=sort]
 ---
 
 === Justification
+
 The sort feature implemented in Contags allows you to easily look through the list of Contacts that you have saved in Contags
 without looking through the whole list one contact at a time just to find that one particular contact. +
 This reduces the time and effort required to find your contacts, making it more user-friendly.
@@ -75,6 +76,7 @@ include::../UserGuide.adoc[tag=tagcolor]
 ---
 
 === Justification
+
 The inclusion of tag colors for each unique tag allows you to differentiate easily between different tags at a glance, without
 having to look through the list or using the `find` or `sort` command to search tags. Colors also allow for better memory retention of specific groups
 to help increase your productivity when organising and looking through your contacts.
@@ -101,7 +103,6 @@ include::../DeveloperGuide.adoc[tag=tagcolor]
 
 A `change` feature which allows you to change the color of each unique tag in your contacts list to the color of your choice.
 
----
 #Start of Extract [from: User Guide]#
 
 include::../UserGuide.adoc[tag=change]
