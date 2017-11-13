@@ -14,8 +14,8 @@ how the enhancements can be further improved.
 
 === Introduction
 
-Contags is a desktop address book application for business executives to efficiently connect with their contacts. Contags aims to be the one-stop application for business executives to contact clients, colleagues and also
-get to know them better
+Contags is a desktop address book application for business executives to efficiently connect with their contacts. Contags aims to be the one-stop application for business executives
+to contact clients, colleagues and create a seamless experience while doing so.
 
 Contags achieves this through the effective management of contact details and ease of use in contacting them through integrated mail and SMS features.
 Furthermore, Contags also includes web-based features such as an in-built Google Maps Search and a Social Media Browser for integrated access within Contags itself.
@@ -24,11 +24,13 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 *Code contributed*: [https://github.com/CS2103AUG2017-T16-B4/main/blob/master/collated/main/mzxc152.md[Functional code]] [https://github.com/CS2103AUG2017-T16-B4/main/blob/master/collated/test/mzxc152.md[Test code]]
 
+---
 === Enhancement Added: Sort
 
-==== External behavior
-
 ---
+
+=== External behavior
+
 #Start of Extract [from: User Guide]#
 
 include::../UserGuide.adoc[tag=sort]
@@ -37,16 +39,18 @@ include::../UserGuide.adoc[tag=sort]
 
 ---
 
-==== Justification
+=== Justification
+
 The sort feature implemented in Contags allows you to easily look through the list of Contacts that you have saved in Contags
 without looking through the whole list one contact at a time just to find that one particular contact. +
 This reduces the time and effort required to find your contacts, making it more user-friendly.
 
 Currently, the sort feature works by sorting your list of contacts either by Name, Phone, Email, Address or Tag, in alphabetical order.
 
-==== Implementation
-
 ---
+
+=== Implementation
+
 #Start of Extract [from: Developer Guide]#
 
 include::../DeveloperGuide.adoc[tag=sortusecase]
@@ -59,9 +63,10 @@ include::../DeveloperGuide.adoc[tag=sort]
 
 === Enhancement added: Tag colors
 
-==== External behavior
-
 ---
+
+=== External behavior
+
 #Start of Extract [from: User Guide]#
 
 include::../UserGuide.adoc[tag=tagcolor]
@@ -70,16 +75,18 @@ include::../UserGuide.adoc[tag=tagcolor]
 
 ---
 
-==== Justification
+=== Justification
+
 The inclusion of tag colors for each unique tag allows you to differentiate easily between different tags at a glance, without
 having to look through the list or using the `find` or `sort` command to search tags. Colors also allow for better memory retention of specific groups
 to help increase your productivity when organising and looking through your contacts.
 
 Currently, the tag colors are a predefined string of colors, which can be seen in the code snippet in the implementation section.
 
-==== Implementation
-
 ---
+
+=== Implementation
+
 #Start of Extract [from: Developer Guide]#
 
 include::../DeveloperGuide.adoc[tag=tagcolor]
@@ -90,9 +97,12 @@ include::../DeveloperGuide.adoc[tag=tagcolor]
 
 === Enhancement Proposed: Add command `change`
 
+---
+
+=== External behavior
+
 A `change` feature which allows you to change the color of each unique tag in your contacts list to the color of your choice.
 
----
 #Start of Extract [from: User Guide]#
 
 include::../UserGuide.adoc[tag=change]
@@ -101,7 +111,7 @@ include::../UserGuide.adoc[tag=change]
 
 ---
 
-==== Justification
+=== Justification
 
 Letting you change the tag color to the color of your choice will make the application more user-friendly and customisable.
 Setting the color of each tag also allows you to sort the tags in your own way which in turn, allows you to better use the colors
