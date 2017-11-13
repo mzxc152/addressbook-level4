@@ -484,7 +484,7 @@ Want to change the order by which your contacts are arranged? +
 Format: `sort KEYWORD`
 
 
-As an alternative, you can use the UI dropdown box _(Figure 5.18.1)_ located near the top-right hand corner of Contags to select how you want the list to be sorted.
+As an alternative, you can use the UI dropdown box _(Figure 5.19.1)_ located near the top-right hand corner of Contags to select how you want the list to be sorted.
 
 image::sort_ui.png[width="200"]
 _Figure 5.19.1 : Sort UI Dropdown Box_
@@ -511,7 +511,7 @@ _Figure 5.19.2 : Sorting by name_ +
 image::sortnameresult.png[width="700"]
 _Figure 5.19.3 : Result after sorting by name_ +
 
-List is sorted according to name in ascending order _(Figure 5.18.3)_. +
+List is sorted according to name in ascending order _(Figure 5.19.3)_. +
 
 * `sort EMAIL` +
 
@@ -522,7 +522,7 @@ _Figure 5.19.4 : Sorting by email address_ +
 image::sortemailresult.png[width="700"]
 _Figure 5.19.5 : Result after sorting by email address_ +
 
-List is sorted according to email addresses in ascending order _(Figure 5.18.5)_.
+List is sorted according to email addresses in ascending order _(Figure 5.19.5)_.
 // end::sort[]
 
 // tag::social[]
