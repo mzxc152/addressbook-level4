@@ -14,8 +14,8 @@ how the enhancements can be further improved.
 
 === Introduction
 
-Contags is a desktop address book application for business executives to efficiently connect with their contacts. Contags aims to be the one-stop application for business executives to contact clients, colleagues and also
-get to know them better
+Contags is a desktop address book application for business executives to efficiently connect with their contacts. Contags aims to be the one-stop application for business executives
+to contact clients, colleagues and create a seamless experience while doing so.
 
 Contags achieves this through the effective management of contact details and ease of use in contacting them through integrated mail and SMS features.
 Furthermore, Contags also includes web-based features such as an in-built Google Maps Search and a Social Media Browser for integrated access within Contags itself.
