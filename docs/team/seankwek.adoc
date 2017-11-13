@@ -74,11 +74,19 @@ include::../DeveloperGuide.adoc[tag=social]
 
 === Enhancement Proposed: Add command `search`
 
-{Explain similar to the Undo/Redo feature above.}
+The `search` command is intended to provide suggestions on the social media sites to associate with a contact, based on the data that is stored within the contact. This feature is intended to help promote closer ties between the user and the contacts that the user might have just added.
+
+The search command will search several popular social media sites such as LinkedIn, Facebook and Twitter for social media pages that most closely correlate with the provided contact. It will use the provided data such as name, email address and contact number to conduct this search. Contags will then load a list that allows the user to select any of the options.
+
+=== Enhancement Proposed: Allow multiple social media pages
+
+With the widespread use of social media, and reported figures stating that the average user has 7 social media accounts, Contags has to assist in keeping up with the activities of the user's contacts. By allowing several social media pages to be associated to a contact, and a new command that allows you to select between the options available, Contags can continue to fulfill it's intended purpose to be a one-stop solution for the business executive.
 
 === Enhancement Proposed: Add command `call`
 
-{Explain similar to the Undo/Redo feature above.}
+The `call` command is a further enhancement on the connectivity aspect of Contags. It will function similarly to the `mail` command, whereby it automatically launches an external application for you, with the contact's details already entered.
+
+In the case of the `call` command, the intention is to harness the power of Skype, which allows desktop users to call both mobile and landlines in Singapore.
 
 === Other contributions
 

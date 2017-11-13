@@ -209,7 +209,7 @@ _Figure 3.3.3 : Interactions inside the Logic Component for the `delete 1` Comma
 
 === Model component
 
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagramNew.png[width="800"]
 _Figure 3.4.1 : Structure of the Model Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -500,7 +500,7 @@ The BirthdayChecker class checks if a contact's birthday falls on the current da
 
 The sequence diagram for the listbirthday command is shown below.
 
-image::listBirthdayCommandSeqDiagram.png[width="800"]
+image::ListBirthdayCommandSequenceDiagram.png[width="800"]
 _Figure 4.4a : listbirthday Command sequence diagram_
 
 ==== Design Considerations
@@ -748,6 +748,35 @@ The `removeTag` command is case sensitive, and the tags identified are case sens
 **Cons:** Time consuming, as user would have to go through contacts one by one.  +
 
 // end::removeTagCommand[]
+
+=== BackUp Storage Mechanism
+
+// tag::backup[]
+
+The backUp storage mechanism is implemented through the `backUpAddressBook` method which resides in the `StorageManager` class. The backUp mechanism stores the data in Contags in the same directory as the main `AddressBook` storage file. The `BackUpAddressBook` storage file will be saved with `-backup.xml` appended at the back of the `AddressBook` storage file.
+
+Upon launch of Contags, the `init` method in `MainApp` would be executed, which initialises `StorageManager` which then calls the method `backUpAddressBook`. The `backUpAddressBook` calls the method `saveAddressBook` which resides in the `StoreManager` class and saves the `backUpAddressBook` file in a fixed temporary location as mentioned above. The code snippet is shown below.
+
+[source,java]
+----
+@Override
+    public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        addressBookStorage.saveAddressBook(addressBook,
+                addressBookStorage.getAddressBookFilePath() + "-backup.xml");
+    }
+----
+
+==== Design Considerations
+
+**Aspect:** When backUpAddressBook should be automatically executed +
+**Alternative 1 (current choice):** Upon launch of Contags +
+**Pros:** Convenient for users as they can easily revert any accidental changes they have made while using Contags. It also accounts for any possibility of data corruption while Contags is running. +
+**Cons:** Does not save any changes made during the session if data corruption occurs while Contags is running. +
+**Alternative 2:** When user executes a command such as `backup` +
+**Pros:** Gives the user more flexibility and freedom of choice to decide which data he/she wants to save to the `backUpAddressBook`. +
+**Cons:** Not an intuitive command for users to do it regularly. They might forget to execute the command, in which case there is a possibility of data loss. +
+
+// end::backup[]
 
 === Logging
 
@@ -1240,7 +1269,7 @@ Contags informs user that the contact cannot be found. Use case ends.
 [discrete]
 === Use case: List contacts whose birthdays fall on current date
 
-// tag::listBirthday[]
+// tag::listbirthday[]
 
 *MSS*
 
@@ -1249,7 +1278,7 @@ Contags informs user that the contact cannot be found. Use case ends.
 +
 Use case ends.
 
-// end::listBirthday[]
+// end::listbirthday[]
 [discrete]
 === Use case: Select Contact
 
@@ -1310,8 +1339,8 @@ Use case ends.
 Contags informs user that the account details are incorrect. Does not change the account details. Use case ends.
 
 // end::reauthenticateUse[]
-
 // tag::findUse[]
+
 [discrete]
 === Use case: Find a contact based on either Phone, Address, Email, Birthday, or Name
 
@@ -1333,7 +1362,28 @@ Contags informs user that 0 persons are found. Use case ends.
 // end::findUse[]
 
 
+[discrete]
+=== Use case: Add events/meetings `Coming in v2.0`
+
+// tag::schedule[]
+
+*MSS*
+
+1. User requests to add events and includes title, date, time and optionally, contact index.
+2. Event panel on top of the browser panel refreshes to reflect the addition of event.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Index is out of range.
++
+Contags informs the user to specify a valid index. Use case ends.
+
+// end::schedule[]
 // tag:NFR[]
+
 [appendix]
 == Non Functional Requirements
 
@@ -1349,9 +1399,10 @@ Contags informs user that 0 persons are found. Use case ends.
 
 // end::NFR[]
 
-// tag::glossary[]
 [appendix]
 == Glossary
+
+// tag::glossary[]
 
 [[acsiidoc]]
 acsiidoc

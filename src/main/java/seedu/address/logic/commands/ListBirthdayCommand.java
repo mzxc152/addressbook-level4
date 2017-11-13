@@ -11,7 +11,7 @@ public class ListBirthdayCommand extends Command {
     public static final String COMMAND_WORD = "listbirthday";
     public static final String COMMAND_ALIAS = "lb";
 
-    public static final String MESSAGE_SUCCESS = "Listed all contacts whose birthday is today."
+    public static final String MESSAGE_SUCCESS = "Listed all contacts whose birthday is today.\n"
             + "Wish them a happy birthday by using the mail or SMS command!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

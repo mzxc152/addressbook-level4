@@ -4,28 +4,42 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :stylesDir: ../stylesheets
 
 == Project: Contags
-Contags is a desktop address book application that is targeted at business professionals. Contags, developed by Team CS2103-T16-B4, is an enhancement and further development of [https://github.com/se-edu/addressbook-level4[AddressBook - Level 4]], created by team SE-EDU as part of the module 2103, offered by the School of Computing in National University of Singapore. The user interacts with Contags primarily using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Contags, developed by Team CS2103-T16-B4, is an enhancement and further development of https://github.com/se-edu/addressbook-level4[AddressBook - Level 4], created by team SE-EDU as part of the module 2103, offered by the School of Computing in National University of Singapore. The user interacts with Contags primarily using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
-*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] {give links to collated code files}
+Contags is a desktop address book application that is tailored to the needs of business professionals. The three main aspects of Contags that make it apt for business professionals are the ease of storing and organising large numbers of contacts, efficient integrated communication and ease of maintaining business relationships.
+
+The following project portfolio describes the enhancements that I have contributed to Contags.
+
+*Code contributed*: [https://github.com/CS2103AUG2017-T16-B4/main/blob/master/collated/main/hymss.md[Functional code]] [https://github.com/CS2103AUG2017-T16-B4/main/blob/master/collated/test/hymss.md[Test code]]
+
+---
 
 === Enhancement Added: Mail Command
 
+---
+
 ==== External behavior
 
+Function: Mailing a contact
+
 include::../UserGuide.adoc[tag=mailContact]
-
-===== Use Case
-
-include::../DeveloperGuide.adoc[tag=mailContact]
 
 ---
 
 ==== Justification
-As Contags was developed with working professionals in mind, having a mail command was of very high priority. Mail is the most widely used application by business professionals and according to a study done by The Radicarti Group, the average business professional sends 35 emails a day. Having a mail command integrated into an address book application would be more convenient for users who can find contacts easily and email them.
+As Contags was developed with the needs of working professionals in mind, a mail command was one of the must-have features. Mail is the most widely used application by business professionals and according to a study done by The Radicarti Group, the average business professional sends 35 emails a day. Having a mail command integrated into an address book application would increase the ease and convenience of sending an email to the desired contact.
+
+---
 
 ==== Implementation
 
 include::../DeveloperGuide.adoc[tag=mailcommand]
+
+---
+
+===== Use Case
+
+include::../DeveloperGuide.adoc[tag=mailContact]
 
 ---
 
@@ -43,6 +57,8 @@ Business professionals would find it useful to keep track of their contacts' bir
 
 include::../DeveloperGuide.adoc[tag=birthdayfield]
 
+See pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/37[#37].
+
 ---
 
 === Enhancement Added: ListBirthday Command
@@ -51,6 +67,7 @@ include::../DeveloperGuide.adoc[tag=birthdayfield]
 
 ==== External behavior
 
+Function: Viewing the list of contacts whose birthdays fall on the current date
 
 include::../UserGuide.adoc[tag=listBirthday]
 
@@ -60,22 +77,61 @@ include::../UserGuide.adoc[tag=listBirthday]
 
 As mentioned, the birthday field is an important aspect of a contact's particulars due to the strong business relationships it can forge. To make the birthday field more useful, a listbirthday command is also implemented. This command lists the contacts whose birthday fall on that particular day. Users can then easily send them a mail or SMS by typing in the respective commands.
 
+---
+
 ==== Implementation
 
 include::../DeveloperGuide.adoc[tag=listBirthday]
 
 ---
 
+===== Use Case
+
+include::../DeveloperGuide.adoc[tag=listbirthday]
+
+---
+
+=== Enhancement Added: BackUpAddressBook
+
+---
+
+==== Justification
+
+Saving a backup of the data in Contags would help in reverting any changes made to the data that results in data loss or corruption.
+
+---
+
+==== Implementation
+
+include::../DeveloperGuide.adoc[tag=backup]
+
+See pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/23[#23].
+
+---
+
 === Enhancement Added: Alias for Commands
+
+---
 
 ==== Justification
 
 We wanted users to be able to execute their desired commands with as little effort as possible. Therefore, we have added an alternative alias for commands to minimise the amount of typing they have to do.
-See (Pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/22[#22], Pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/124[#124]).
+
+See pull requests https://github.com/CS2103AUG2017-T16-B4/main/pull/22[#22], https://github.com/CS2103AUG2017-T16-B4/main/pull/124[#124].
+
+---
+
+=== Enhancement Proposed:
+
+---
+
+==== Justification
 
 ---
 
 === Developer Guide Appendix: Glossary
+
+---
 
 include::../DeveloperGuide.adoc[tag=glossary]
 
@@ -89,17 +145,10 @@ include::../DeveloperGuide.adoc[tag=productSurvey]
 
 ---
 
-=== Enhancement Proposed: Add command `schedule`
-
-A schedule feature would allow users to create events such as meetings or dinner with other contacts.
-
 === Other contributions
 
-* Added a backup to store contents of addressbook (Pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/23[#23])
-* Added birthday field (Pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/37[#37])
-* Updated UI to add new logo and include a separate browser panel displaying the address of a contact when contact is selected (Pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/107[#107]])
+---
+
+* Updated UI to add new logo and include a separate browser panel displaying the address of a contact when contact is selected (Pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/107[#107])
 * Enhanced find command to find by tags (Pull request https://github.com/CS2103AUG2017-T16-B4/main/pull/111[#111])
-
-== Project:
-
-{Optionally (not graded), you may include other projects in your portfolio.}
+* Wrote manual testing scripts (TestScript.adoc and SampleData.xml) (Pull requests https://github.com/CS2103AUG2017-T16-B4/main/pull/137[#137], https://github.com/CS2103AUG2017-T16-B4/main/pull/123[#123])

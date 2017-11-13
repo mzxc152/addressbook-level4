@@ -6,35 +6,41 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 = Manual Testing Script
 
 To load the sample data in the address book,
+1. In the same folder as the downloaded `Contags.jar` file, create a folder named `data`.
+2. Move `SampleData.xml` (from src/test/data/ManualTesting) to the data folder and rename it as `addressbook.xml`.
+3. Open the `Contags.jar` file.
+
+The application should be loaded with the sample data.
 
 For all the commands, we have an autocomplete function where you can select which command you want to type by using the up and down arrows to navigate the list of suggested commands and clicking 'Enter'. To exit the autocomplete list, simply press 'tab'.
 
 == User Interface
 
-=== Adding a contact:
-• You can use the autocomplete function to select: a n/ p/ e/ a/ b/ s/ r/ t/
-• To add a contact, type in: add n/Ernest Choo p/97121212 e/ernest@example.com a/117B HillCrest Road b/10/05/1995 t/friend
-• You can also type the alias for add which is a: a n/Rachel Ang p/98769877 e/rachelang@example.com a/11 Kent Ridge Drive b/04/07/1997 t/friend
-• The tag field is optional, so you can type: add n/Ian Koh p/97890657 e/ian@example.com a/31 Lorong Chuan b/11/07/1997
+• You can use the autocomplete function to select: a n/ p/ e/ a/ b/ s/ t/
+• To add a contact, type in: `add n/Ernest Choo p/97121212 e/ernest@example.com a/117B HillCrest Road b/10/05/1995 s/sg.linkedin.com t/friend`
+• You can also type the alias for add which is a: `a n/Rachel Ang p/98769877 e/rachelang@example.com a/11 Kent Ridge Drive b/04/07/1997 s/twitter.com t/friend`
+• The tag and social media fields are optional, so you can type: `add n/Ian Koh p/97890657 e/ian@example.com a/31 Lorong Chuan b/11/07/1997`
 
-=== To edit a contact, type:
-• `edit 1 n/John Yong`
-• `edit 2 p/91238888`
-• `edit 3 e/damithrajapakse@example.com`
-• `edit 4 a/Choa Chu Kang Street 51`
-• `edit 5 b/08/11/1996`
-• `edit 6 t/friend`
+===== 1.2 Edit Command:
++
+• `edit 1 n/John Yong` +
+• `edit 2 p/91238888` +
+• `edit 3 e/damithrajapakse@example.com` +
+• `edit 4 a/Choa Chu Kang Street 51` +
+• `edit 5 b/08/11/1996` +
+• `edit 6 facebook.com` +
+• `edit 7 t/friend` +
 
-=== You can also type the alias for edit which is e:
+You can also type the alias for edit which is e: +
+
 • `e 1 n/John Yeo`
 
 You can also edit more than one field at once:
 
 • `edit 1 b/13/02/1976 t/friends`
 
-To add a remark to a contact, type:
-
-• `edit 7 r/Owes Money`
+To add a remark to a contact, type: +
+• `remark 7 r/Owes Money`
 
 To remove a tag from a contact, type:
 
@@ -67,7 +73,7 @@ To sort a list of contacts, type sort follows by the field you want to sort by.
 
 [NOTE]
 ====
-The `removeTag` Command is case-sensitive. The case you type must be the exact case used in the application.
+The `removeTag` Command is case-sensitive. The case of the Tag you identify must be the exact case used in the application.
 ====
 
 •  The "Client" tag should be removed from all contacts in the application.
