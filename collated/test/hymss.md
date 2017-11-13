@@ -1,4 +1,12 @@
 # hymss
+###### /java/seedu/address/logic/commands/AddCommandTest.java
+``` java
+        @Override
+        public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+            fail("This method should not be called.");
+        }
+
+```
 ###### /java/seedu/address/logic/commands/ListBirthdayCommandTest.java
 ``` java
 /**
@@ -284,38 +292,6 @@ public class BirthdayTest {
         assertEquals(backup, new AddressBook(retrivedBackup));
     }
 
-    @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
-    }
-
-    @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
-        // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"),
-                                             new JsonUserPrefsStorage("dummy"));
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
-        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
-    }
-
-
-    /**
-     * A Stub class to throw an exception when the save method is called
-     */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage {
-
-        public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
-            throw new IOException("dummy exception");
-        }
-    }
-
-
-}
 ```
 ###### /java/seedu/address/testutil/EditPersonDescriptorBuilder.java
 ``` java
