@@ -42,9 +42,10 @@ include::../DeveloperGuide.adoc[tag=findUse]
 
 #Start of Extract [from: User Guide]#
 
-include::../UserGuide.adoc[tag=findUse]
+include::../UserGuide.adoc[tag=removeTag]
 
 #End of Extract#
+
 
 ==== Justification
 
