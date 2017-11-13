@@ -7,7 +7,7 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
 The purpose of this project portfolio page is to document the enhancements that I have worked on for different software projects that I have been involved in.
 
-This portfolio also serves to showcase my work to potential employees or other software developers who may be interested in working alongside me in future projects, or to discuss
+This portfolio also serves to showcase my work to potential employers or other software developers who may be interested in working alongside me in future projects, or to discuss
 how the enhancements can be further improved.
 
 == Project: Contags
