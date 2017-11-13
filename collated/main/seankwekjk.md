@@ -1,5 +1,20 @@
 # seankwekjk
-###### \java\seedu\address\logic\commands\EditCommand.java
+###### /java/seedu/address/commons/events/ui/ToggleChangedEvent.java
+``` java
+/**
+ * Represents the user using the ToggleCommand
+ */
+public class ToggleChangedEvent extends BaseEvent {
+
+    public ToggleChangedEvent() {}
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+}
+```
+###### /java/seedu/address/logic/commands/EditCommand.java
 ``` java
         public void setSocial(String url) {
             this.url = url;
@@ -10,7 +25,7 @@
         }
 
 ```
-###### \java\seedu\address\logic\commands\RemarkCommand.java
+###### /java/seedu/address/logic/commands/RemarkCommand.java
 ``` java
 /**
  * Adds, removes and edits remarks of an existing person in the address book.
@@ -18,6 +33,7 @@
 public class RemarkCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "remark";
+    public static final String COMMAND_ALIAS = "re";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a remark to a person in the address book. "
             + "Parameters: "
@@ -84,7 +100,7 @@ public class RemarkCommand extends UndoableCommand {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\ToggleCommand.java
+###### /java/seedu/address/logic/commands/ToggleCommand.java
 ``` java
 /**
  * Toggles Browser function of the Select Command.
@@ -92,12 +108,14 @@ public class RemarkCommand extends UndoableCommand {
 public class ToggleCommand extends Command {
 
     public static final String COMMAND_WORD = "toggle";
+    public static final String COMMAND_ALIAS = "t";
 
     public static final String TOGGLE_SUCCESS = "Browser Panel Toggled to ";
 
     @Override
     public CommandResult execute() throws CommandException {
         BrowserPanel.setBrowserMode();
+        EventsCenter.getInstance().post(new ToggleChangedEvent());
         return new CommandResult(composeCommandResult());
     }
 
@@ -113,16 +131,18 @@ public class ToggleCommand extends Command {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\AddressBookParser.java
+###### /java/seedu/address/logic/parser/AddressBookParser.java
 ``` java
         case RemarkCommand.COMMAND_WORD:
+        case RemarkCommand.COMMAND_ALIAS:
             return new RemarkCommandParser().parse(arguments);
 
         case ToggleCommand.COMMAND_WORD:
+        case ToggleCommand.COMMAND_ALIAS:
             return new ToggleCommand();
 
 ```
-###### \java\seedu\address\logic\parser\RemarkCommandParser.java
+###### /java/seedu/address/logic/parser/RemarkCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new RemarkCommand object
@@ -163,7 +183,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
     }
 }
 ```
-###### \java\seedu\address\model\person\Person.java
+###### /java/seedu/address/model/person/Person.java
 ``` java
     /**
      * Only url is allowed to be null.
@@ -183,7 +203,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
     }
 
 ```
-###### \java\seedu\address\model\person\Person.java
+###### /java/seedu/address/model/person/Person.java
 ``` java
     public Remark getRemark() {
         return remark.get();
@@ -210,7 +230,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
     }
 
 ```
-###### \java\seedu\address\model\person\Remark.java
+###### /java/seedu/address/model/person/Remark.java
 ``` java
 /**
  *Represents a Remark in the AddressBook.
@@ -245,27 +265,30 @@ public class Remark {
     }
 }
 ```
-###### \java\seedu\address\ui\BrowserPanel.java
+###### /java/seedu/address/ui/BrowserPanel.java
 ``` java
-    private void loadPersonPage(ReadOnlyPerson pers) {
-        loadPage(GOOGLE_SEARCH_URL_PREFIX
-                + pers.getAddress().value.replaceAll(" ", "+").replaceAll(",", "%2C"));
-    }
-
+    /**
+     * Loads the social media page of the contact selected.
+     * @param pers
+     */
     private void loadSocialPage(ReadOnlyPerson pers) {
         loadPage(SOCIAL_MEDIA_URL_PREFIX + pers.getSocialMedia());
+        setSocial(pers);
+        setField("Social Media");
     }
 
-    public static Boolean getBrowserMode() {
-        return browserMode;
-    }
-
-    public static void setBrowserMode() {
-        browserMode = !browserMode;
+    /**
+     * Loads the social media page of the contact selected through last saved url.
+     * Meant to be called by ToggleCommand.
+     */
+    private void loadSocialPage() {
+        loadPage(SOCIAL_MEDIA_URL_PREFIX + lastUrl);
+        value.setText(lastUrl);
+        field.setText("Social Media");
     }
 
 ```
-###### \java\seedu\address\ui\BrowserPanel.java
+###### /java/seedu/address/ui/BrowserPanel.java
 ``` java
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
@@ -275,6 +298,40 @@ public class Remark {
         }   else {
             loadSocialPage(event.getNewSelection().person);
         }
+        lastAddress = event.getNewSelection().person.getAddress();
+        lastUrl = event.getNewSelection().person.getSocialMedia();
+    }
+
+    @Subscribe
+    private void handleToggleChangedEvent(ToggleChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (lastAddress == null) {
+            return;
+        }
+        if (browserMode) {
+            loadPersonPage();
+        }   else {
+            loadSocialPage();
+        }
     }
 }
+```
+###### /resources/view/MainWindow.fxml
+``` fxml
+  <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+    <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+      <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+      </padding>
+      <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+    </VBox>
+
+    <VBox spacing="0">
+      <StackPane fx:id="browserPlaceholder" prefWidth="340" maxHeight="Infinity" VBox.vgrow="ALWAYS" />
+
+      <StackPane fx:id="resultDisplayPlaceholder" maxHeight="135.0" minHeight="97.0" prefHeight="100.0" prefWidth="350" styleClass="pane-with-border" />
+
+      <StackPane fx:id="commandBoxPlaceholder" maxHeight="90" styleClass="pane-with-border" />
+    </VBox>
+  </SplitPane>
 ```

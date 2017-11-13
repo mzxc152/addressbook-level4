@@ -1,4 +1,11 @@
 # hymss
+###### /java/seedu/address/logic/commands/Command.java
+``` java
+    public static String getMessageForBirthdayListShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
+    }
+
+```
 ###### /java/seedu/address/logic/commands/EditCommand.java
 ``` java
         public void setBirthday(Birthday birthday) {
@@ -13,18 +20,18 @@
 ###### /java/seedu/address/logic/commands/ListBirthdayCommand.java
 ``` java
 /**
- * Lists all persons in Contags whose birthday is the current day to the user.
+ * Lists all persons in Contags whose birthday falls on the current day.
  */
 public class ListBirthdayCommand extends Command {
 
     public static final String COMMAND_WORD = "listbirthday";
+    public static final String COMMAND_ALIAS = "lb";
 
-    public static final String MESSAGE_SUCCESS = "Listed all contacts whose birthday is today.";
+    public static final String MESSAGE_SUCCESS = "Listed all contacts whose birthday is today.\n"
+            + "Wish them a happy birthday by using the mail or SMS command!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Lists all the persons whose birthday is the current day.\n"
-            + "Parameters: KEYWORD\n"
-            + "Example for birthday list: " + COMMAND_WORD;
+            + ": Lists all the persons whose birthday is the current day.\n";
 
     private BirthdayChecker checker = new BirthdayChecker();
 
@@ -39,12 +46,108 @@ public class ListBirthdayCommand extends Command {
     }
 }
 ```
+###### /java/seedu/address/logic/commands/MailCommand.java
+``` java
+/**
+ * Mails a person in Contags.
+ */
+public class MailCommand extends Command {
+
+    public static final String COMMAND_WORD = "mail";
+    public static final String COMMAND_ALIAS = "m";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Mails a contact in Contags.\n"
+            + "Recipient mail address cannot be blank.\n"
+            + "Parameters: " + PREFIX_MAIL_RECEPIENT + " INDEX"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_MAIL_RECEPIENT + "1";
+
+    public static final String MESSAGE_SUCCESS = "Redirecting to Mail application.";
+    public static final String MESSAGE_FAILURE = "Could not redirect to Mail application. "
+            + "Please enter a valid index and ensure that you have a working internet connection.";
+
+    private final Index targetIndex;
+
+    public MailCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
+    /**
+     * Opens up default Desktop Mail application.
+     */
+
+    public void sendMail(String sendMailTo) throws ParseException, IOException, URISyntaxException {
+
+        String host = "localhost";
+
+        Properties properties = System.getProperties();
+        properties.setProperty("mail.sftp.host", host);
+
+        Desktop desktop = Desktop.getDesktop();
+        URI mailTo;
+        String url = "";
+
+        try {
+            url = "mailTo:" + sendMailTo;
+            mailTo = new URI(url);
+            desktop.mail(mailTo);
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public CommandResult execute() throws CommandException {
+
+        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
+
+        String sendMailTo = lastShownList.get(targetIndex.getZeroBased()).getEmail().toString();
+
+        try {
+            sendMail(sendMailTo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new CommandResult(MESSAGE_FAILURE);
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MailCommand // instanceof handles nulls
+                && this.targetIndex.equals(((MailCommand) other).targetIndex)); // state check
+    }
+
+}
+```
+###### /java/seedu/address/logic/parser/AddressBookParser.java
+``` java
+        case ListBirthdayCommand.COMMAND_WORD:
+        case ListBirthdayCommand.COMMAND_ALIAS:
+            return new ListBirthdayCommand();
+
+```
+###### /java/seedu/address/logic/parser/AddressBookParser.java
+``` java
+        case MailCommand.COMMAND_WORD:
+        case MailCommand.COMMAND_ALIAS:
+            return new MailCommandParser().parse(arguments);
+
+```
 ###### /java/seedu/address/logic/parser/MailCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new MailCommand object
  */
 public class MailCommandParser implements Parser<MailCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the MailCommand
      * and returns an MailCommand object for execution.
@@ -53,18 +156,14 @@ public class MailCommandParser implements Parser<MailCommand> {
 
     public MailCommand parse(String args) throws ParseException {
 
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MAIL_RECEPIENT, PREFIX_MAIL_TITLE, PREFIX_MAIL_MESSAGE);
         try {
             Index index = ParserUtil.parseIndex(args);
-            String title = String.join("", argMultimap.getAllValues(PREFIX_MAIL_TITLE)).replace(" ", "%20");
-            String message = String.join("", argMultimap.getAllValues(PREFIX_MAIL_MESSAGE)).replace(" ", "%20");
-
-            return new MailCommand(index, title, message);
+            return new MailCommand(index);
         } catch (IllegalValueException ive) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MailCommand.MESSAGE_USAGE));
         }
+
     }
 }
 ```
@@ -79,44 +178,72 @@ public class MailCommandParser implements Parser<MailCommand> {
         return birthday.isPresent() ? Optional.of(new Birthday(birthday.get())) : Optional.empty();
     }
 
-```
-###### /java/seedu/address/logic/parser/ParserUtil.java
-``` java
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseTags(Collection<String> tags) throws IllegalValueException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        return tagSet;
+    }
+
+    /**
+     * Parses a {@code Optional<String> remark} into an {@code Optional<Remark>} if {@code remark} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Remark> parseRemark(Optional<String> remark) throws IllegalValueException {
+        requireNonNull(remark);
+        return remark.isPresent() ? Optional.of(new Remark(remark.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code Optional<String> url} into an {@code Optional<String>} if {@code url} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<String> parseSocial(Optional<String> url) throws IllegalValueException {
+        requireNonNull(url);
+        return url.isPresent() ? Optional.of(url.get()) : Optional.empty();
+    }
+
     /**
      * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
      */
-    public static String[] parseMailToCommand(List<String> name) throws IllegalValueException {
-        requireNonNull(name);
-        String trimmed = String.join(" ", name).trim();
-        String[] newTrimmed = trimmed.split("\\s+");
-        return newTrimmed;
+    public static String parseAuthenticator(String authenticator) throws IllegalValueException {
+        requireNonNull(authenticator);
+        return authenticator.trim();
     }
-}
-```
-###### /java/seedu/address/model/Model.java
-``` java
-    /**
-     * Updates the filter of the filtered list of people to mail to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    String updateMailRecipientList(Predicate<ReadOnlyPerson> predicate);
+
 
 }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### /java/seedu/address/model/person/AnyParticularContainsKeywordsPredicate.java
 ``` java
     @Override
-    public String updateMailRecipientList(Predicate<ReadOnlyPerson> predicate) {
-        requireNonNull(predicate);
-        filteredMails.setPredicate(predicate);
-        List<String> validPeopleList = new ArrayList<>();
-        for (ReadOnlyPerson person : filteredPersons) {
-            if (person.getEmail() != null && !person.getEmail().value.equalsIgnoreCase("INVALID_EMAIL@EXAMPLE.COM")
-                 && !validPeopleList.contains(person.getEmail().value)) {
-                validPeopleList.add(person.getEmail().value);
-            }
+    public boolean test(ReadOnlyPerson person) {
+
+        Set<Tag> personTags = person.getTags();
+        String tempAllTagNames = "";
+        for (Tag tag: personTags) {
+            tempAllTagNames = tempAllTagNames + tag.getTagName() + " ";
         }
-        return String.join(",", validPeopleList);
+        final String allTagNames = tempAllTagNames;
+
+        return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))
+                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase
+                (person.getAddress().toString(), keyword))
+                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase
+                (person.getBirthday().toString(), keyword))
+                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase
+                (person.getEmail().toString(), keyword))
+                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase
+                (person.getPhone().toString(), keyword))
+                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase
+                (person.getRemark().getRemarkText(), keyword))
+                || keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(allTagNames, keyword));
     }
 
 ```
@@ -129,8 +256,8 @@ public class MailCommandParser implements Parser<MailCommand> {
 public class Birthday {
 
     public static final String MESSAGE_BIRTHDAY_CONSTRAINTS =
-            "Person birthdays can only contain numbers and forward slashes, and it should not be blank."
-                + " The birthday must be in the form dd/mm/yy or dd/mm/yyy";
+            "Birthdays cannot be empty and should be an actual date. They can only contain numbers and forward slashes."
+                + " The birthday must be in the form dd/mm/yy or dd/mm/yyy.";
 
     /*
      * The first character of the birthday must not be a whitespace,
@@ -145,7 +272,7 @@ public class Birthday {
 
     /**
      * Validates given birthday.
-     *
+     * @param birthday
      * @throws IllegalValueException if given birthday string is invalid.
      */
     public Birthday(String birthday) throws IllegalValueException {
@@ -195,10 +322,10 @@ public class BirthdayChecker implements Predicate<ReadOnlyPerson> {
     }
 
     /**
-    * Checks if a contact's birthday falls on the current day
+    * Checks if a contact's birthday falls on the current day.
     * @param person
     * @return boolean
-    * * @throws ParseException
+    * @throws ParseException
     */
 
     public boolean birthdayList(ReadOnlyPerson person) throws ParseException {
@@ -209,6 +336,7 @@ public class BirthdayChecker implements Predicate<ReadOnlyPerson> {
         return (((calendar.get(Calendar.MONTH)) == Calendar.getInstance().get(Calendar.MONTH))
                 && ((calendar.get(Calendar.DAY_OF_MONTH) == Calendar.getInstance().get(Calendar.DAY_OF_MONTH))));
     }
+
     @Override
     public boolean test(ReadOnlyPerson person) {
         boolean index = false;
@@ -244,6 +372,40 @@ public class BirthdayChecker implements Predicate<ReadOnlyPerson> {
     }
 
 ```
+###### /java/seedu/address/model/tag/Tag.java
+``` java
+    public String getTagName() {
+        return this.tagName;
+    }
+
+    /**
+     * Returns true if a given string is a valid tag name.
+     */
+    public static boolean isValidTagName(String test) {
+        return test.matches(TAG_VALIDATION_REGEX);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Tag // instanceof handles nulls
+                && this.tagName.equals(((Tag) other).tagName)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return tagName.hashCode();
+    }
+
+    /**
+     * Format state as text for viewing.
+     */
+    public String toString() {
+        return '[' + tagName + ']';
+    }
+
+}
+```
 ###### /java/seedu/address/storage/AddressBookStorage.java
 ``` java
     void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
@@ -266,4 +428,49 @@ public class BirthdayChecker implements Predicate<ReadOnlyPerson> {
     }
 
 }
+```
+###### /java/seedu/address/ui/BrowserPanel.java
+``` java
+    /**
+     * Loads the address of the contact selected and corresponding google maps page.
+     * @param pers
+     */
+    private void loadPersonPage(ReadOnlyPerson pers) {
+        loadPage(GOOGLE_SEARCH_URL_PREFIX
+                + pers.getAddress().value.replaceAll(" ", "+").replaceAll(",", "%2C"));
+        setAddress(pers);
+        setField("Address");
+    }
+
+    /**
+     * Loads the address of the contact selected and corresponding google maps page through last saved address.
+     * Meant to be called by ToggleCommand.
+     */
+    private void loadPersonPage() {
+        loadPage(GOOGLE_SEARCH_URL_PREFIX + lastAddress.value.replaceAll(" ", "+")
+                .replaceAll(",", "%2C"));
+        value.setText(lastAddress.value);
+        field.setText("Address");
+    }
+
+```
+###### /resources/view/BrowserPanel.fxml
+``` fxml
+
+<StackPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+  <VBox fx:id="addressPane" prefHeight="200.0" prefWidth="100.0">
+    <children>
+      <SplitPane dividerPositions="0.5" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="20.0">
+        <items>
+          <Label fx:id="field" maxWidth="160.0" minWidth="80.0">
+            <padding>
+              <Insets left="5.0" />
+            </padding></Label>
+          <Label fx:id="value" />
+        </items>
+      </SplitPane>
+      <WebView fx:id="browser" minHeight="-Infinity" minWidth="-Infinity" maxHeight="Infinity" VBox.vgrow="ALWAYS" />
+    </children>
+  </VBox>
+</StackPane>
 ```
