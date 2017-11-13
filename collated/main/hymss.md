@@ -178,6 +178,16 @@ public class MailCommandParser implements Parser<MailCommand> {
         return birthday.isPresent() ? Optional.of(new Birthday(birthday.get())) : Optional.empty();
     }
 
+<<<<<<< HEAD
+```
+###### /java/seedu/address/model/ModelManager.java
+``` java
+    @Override
+    public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
+    }
+=======
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
@@ -216,8 +226,8 @@ public class MailCommandParser implements Parser<MailCommand> {
         return authenticator.trim();
     }
 
+>>>>>>> v1.5
 
-}
 ```
 ###### /java/seedu/address/model/person/AnyParticularContainsKeywordsPredicate.java
 ``` java
@@ -378,6 +388,8 @@ public class BirthdayChecker implements Predicate<ReadOnlyPerson> {
         return this.tagName;
     }
 
+<<<<<<< HEAD
+=======
     /**
      * Returns true if a given string is a valid tag name.
      */
@@ -405,6 +417,7 @@ public class BirthdayChecker implements Predicate<ReadOnlyPerson> {
     }
 
 }
+>>>>>>> v1.5
 ```
 ###### /java/seedu/address/storage/AddressBookStorage.java
 ``` java

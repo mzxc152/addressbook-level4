@@ -1,6 +1,17 @@
 # hymss
 ###### /java/seedu/address/logic/commands/ListBirthdayCommandTest.java
 ``` java
+<<<<<<< HEAD
+        @Override
+        public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+            fail("This method should not be called.");
+        }
+
+```
+###### /java/seedu/address/logic/commands/ListBirthdayCommandTest.java
+``` java
+=======
+>>>>>>> v1.5
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
@@ -284,6 +295,8 @@ public class BirthdayTest {
         assertEquals(backup, new AddressBook(retrivedBackup));
     }
 
+<<<<<<< HEAD
+=======
     @Test
     public void getAddressBookFilePath() {
         assertNotNull(storageManager.getAddressBookFilePath());
@@ -316,6 +329,7 @@ public class BirthdayTest {
 
 
 }
+>>>>>>> v1.5
 ```
 ###### /java/seedu/address/testutil/EditPersonDescriptorBuilder.java
 ``` java
