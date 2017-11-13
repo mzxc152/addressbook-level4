@@ -385,7 +385,7 @@ During initialising of a new `Person`, the `Remark` field is not able to be fill
 The following sequence diagram shows the execution of the RemarkCommand.
 
 image::RemarkCommandSequenceDiagram.png[width="800"]
-_Figure 3.5.1 : Remark Command sequence diagram_
+_Figure 4.2.1 : Remark Command sequence diagram_
 
 [NOTE]
 The `index` field of the `RemarkCommand` uses the indexing of the filtered list that is currently being shown, not the list of all persons.
