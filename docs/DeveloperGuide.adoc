@@ -496,7 +496,7 @@ The listbirthday command displays the list of contacts in Contags whose birthday
 
 The BirthdayChecker class checks if a contact's birthday falls on the current date by checking if the month and day of the contact's birthday and current date are equal. This is done so by converting the month and day first to a string, which is then converted to a date object and finally a calendar object.
 
-The sequence diagram for the listbirthday command is shown below in figure 4.4a.
+The sequence diagram for the listbirthday command is shown below in figure 4.5a.
 
 image::ListBirthdayCommandSequenceDiagram.png[width="800"]
 _Figure 4.4a : listbirthday Command sequence diagram_
@@ -618,7 +618,7 @@ If the index entered by the user does not comply with the expected range, ParseE
 
 The `MailCommand` links the logic in Contags to the content (email address of the specified index) that in displayed on the desktop mail application. +
 
-The following sequence diagram (figure 4.7a) illustrates the execution of the `mail` command.
+The following sequence diagram (figure 4.8a) illustrates the execution of the `mail` command.
 
 image::MailCommandSequenceDiagram.png[width="800"]
 _Figure 4.7a : Mail Command sequence diagram_
